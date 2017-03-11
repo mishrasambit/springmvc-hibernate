@@ -47,9 +47,32 @@ public class AppController {
         return user;
     }
 
-    @RequestMapping(value = { "/listemp" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/emp" }, method = RequestMethod.GET)
     public List<Emp> listEmp() {
         List<Emp> emplist = empService.findAllEmp();
+        /*List<Emp> emplist = new ArrayList<Emp>();
+        Emp emp = new Emp();
+        emp.setId(9);
+        emp.setEmail("sambit@abc.com");
+        emp.setFirstName("Sambit");
+        emp.setLastName("Mishra");
+        emplist.add(emp);*/
         return emplist;
+    }
+
+    @RequestMapping(value = { "/emp" }, method = RequestMethod.POST)
+    public Emp addEmp(@RequestBody Emp emp) {
+        empService.saveEmp(emp);
+        return emp;
+    }
+
+    @RequestMapping(value = { "/emp/{id}" }, method = RequestMethod.GET)
+    public Emp showEmp(@PathVariable String id) {
+        Emp emp = new Emp();
+        emp.setId(Integer.parseInt(id));
+        emp.setEmail("sambit@abc.com");
+        emp.setFirstName("Sambit");
+        emp.setLastName("Mishra");
+        return emp;
     }
 }

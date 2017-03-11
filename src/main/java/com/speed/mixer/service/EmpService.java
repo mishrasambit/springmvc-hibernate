@@ -10,7 +10,7 @@ import java.util.List;
 public interface EmpService {
     Emp findById(int id);
 
-    void saveUser(Emp user);
+    void saveEmp(Emp user);
 
     void deleteUserBySSO(String sso);
 

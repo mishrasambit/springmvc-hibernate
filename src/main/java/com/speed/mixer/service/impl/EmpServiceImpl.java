@@ -25,7 +25,7 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public void saveUser(Emp user) {
+    public void saveEmp(Emp user) {
         dao.save(user);
     }
 

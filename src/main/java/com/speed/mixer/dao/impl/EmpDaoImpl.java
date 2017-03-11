@@ -4,7 +4,8 @@ import com.speed.mixer.dao.AbstractDao;
 import com.speed.mixer.dao.EmpDao;
 import com.speed.mixer.model.Emp;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -40,16 +41,18 @@ public class EmpDaoImpl extends AbstractDao<Integer, Emp> implements EmpDao {
 
     @Override
     public List<Emp> findAllEmp() {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("firstName"));
+        /*Criteria criteria = createEntityCriteria().addOrder(Order.asc("firstName"));
+        System.out.println(criteria.toString());
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
-        List<Emp> empList = (List<Emp>) criteria.list();
+        List<Emp> empList = (List<Emp>) criteria.list();*/
 
-        // No need to fetch userProfiles since we are not showing them on list page. Let them lazy load.
-        // Uncomment below lines for eagerly fetching of userProfiles if you want.
-        /*
-        for(User user : users){
-            Hibernate.initialize(user.getUserProfiles());
-        }*/
+        List<Emp> empList=null;
+        Session session=null;
+            session = getSession();
+
+            Query query = session.createQuery("FROM Emp emp");
+            empList =(List<Emp>) query.list();
+
         return empList;
     }
 }
